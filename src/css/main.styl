@@ -19,3 +19,24 @@ html,body,#app,.home,.el-container
 .el-menu-vertical-demo:not(.el-menu--collapse) 
   width: 200px;
   min-height: 400px;
+
+// 重新定义滚动条样式 
+div::-webkit-scrollbar 
+  width:4px; 
+  height:2px; 
+  background:#ccc; 
+  border-radius:2px;//外层
+
+div::-webkit-scrollbar-thumb
+  display:block;
+  width:6px; 
+  margin:0 auto; 
+  border-radius: 10px; 
+  background:gray;//内层轨道
+
+.el-tabs__nav .el-tabs__item:nth-child(1) span
+  display none !important
+
+// .el-menu .is-active
+//   color white !important
+

@@ -11,7 +11,29 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children:[
+        {
+          path: '/first',
+          name: 'first',
+          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/first.vue')
+        },
+        {
+          path: '/second',
+          name: 'second',
+          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/second.vue')
+        },
+        {
+          path: '/third',
+          name: 'third',
+          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/third.vue')
+        },
+        {
+          path: '/forth',
+          name: 'forth',
+          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/forth.vue')
+        }
+      ]
     },
     {
       path: '/about',
