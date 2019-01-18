@@ -177,9 +177,23 @@ export default class Main extends Vue {
   }
 
   removeTab(targetName: any) {
-    this.editableTabs2.splice(targetName - 1, 1)
-    this.currectIndex = this.editableTabs2.length + ""
-    this.$router.push({name:this.editableTabs2[this.editableTabs2.length - 1].route})
+    if(targetName < this.currectIndex){
+      this.editableTabs2.splice(targetName - 1, 1)
+      this.currectIndex = targetName + ""
+    }else if(targetName == this.currectIndex){
+      if(targetName == this.editableTabs2.length){
+        this.editableTabs2.splice(targetName - 1, 1)
+        this.currectIndex = this.editableTabs2.length + ""
+        this.$router.push({name:this.editableTabs2[this.editableTabs2.length - 1].route})
+      }else{
+        this.editableTabs2.splice(targetName - 1, 1)
+        this.currectIndex = targetName + ""
+        this.$router.push({name:this.editableTabs2[targetName - 1].route})
+      }
+    }else{
+      this.editableTabs2.splice(targetName - 1, 1)
+      this.currectIndex = targetName - 1 + ""
+    }
   }
 
   tabclic(data:any){
