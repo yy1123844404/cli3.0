@@ -49,9 +49,9 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class Main extends Vue {
-  menutree: object = {};
-  currectIndex: string = "1";
-  editableTabs2: any = [
+  menutree: object = {};//左侧菜单树
+  currectIndex: string = "1";//标签页正确的显示
+  editableTabs2: any = [ //上方标签页的集合
     {
       menuTitle: "首页",
       name: "1",
@@ -59,7 +59,7 @@ export default class Main extends Vue {
     }
   ];
   tabIndex: number = 1;
-  navList:any = []
+  navList:any = [] //用于记录标签页
   mounted() {
     this.menutree = [
       {
@@ -111,10 +111,6 @@ export default class Main extends Vue {
         ]
       }
     ];
-    // let add = (res: object) :void => {
-    //     console.log(res)
-    // }
-    // this.$http.get('/menu.json').then(add)
   }
 
   addTab(targetName: any) {
@@ -129,38 +125,41 @@ export default class Main extends Vue {
         return false
       }
     }
-    if(bool){
-      let x:any = document.getElementsByClassName("el-menu-item")
-      for(let y in x){
+    if(bool){//当前没有此标签页时候添加 
+      let x:any = document.getElementsByClassName("el-menu-item") 
+      for(let y in x){ //处理左侧样式
         if(typeof x[y] == "object"){
           if(x[y].innerText == targetName.menuTitle){
             x[y].style.color = "rgb(255,208,75)"
           }
         }
       }
-
+      //开始添加
       let newTabName = ++this.tabIndex +'';
       this.editableTabs2.push({
         menuTitle: targetName.menuTitle,
         menuId: targetName.menuId,
         route: targetName.route
       });
+      //更改当前标签页状态
       this.currectIndex = this.editableTabs2.length  + "";
       this.navList.push({
         menuTitle: targetName.menuTitle,
         menuId: targetName.menuId,
         route: targetName.route
       })
+      //改变路由
       this.$router.push({name:targetName.route})
     }
   }
-
+//移除标签页
   removeTab(targetName: any) {
+    //移除的在当前标签页前面的时候
     if(targetName < this.currectIndex){
       this.editableTabs2.splice(targetName - 1, 1)
       this.currectIndex = targetName + ""
-    }else if(targetName == this.currectIndex){
-      if(targetName == this.editableTabs2.length){
+    }else if(targetName == this.currectIndex){//移除的是当前标签页
+      if(targetName == this.editableTabs2.length){//判断当前标签页是不是最后一个
         this.editableTabs2.splice(targetName - 1, 1)
         this.currectIndex = this.editableTabs2.length + ""
         this.$router.push({name:this.editableTabs2[this.editableTabs2.length - 1].route})
@@ -179,12 +178,12 @@ export default class Main extends Vue {
         this.currectIndex = targetName + ""
         this.$router.push({name:this.editableTabs2[targetName - 1].route})
       }
-    }else{
+    }else{//移除标签页在当前标签页之后
       this.editableTabs2.splice(targetName - 1, 1)
       this.currectIndex = targetName - 1 + ""
     }
   }
-
+//标签页被点击
   tabclic(data:any){
     this.$router.push({name:data["$attrs"]["data-route"]})
     let x:any = document.getElementsByClassName("el-menu-item")
