@@ -19,35 +19,13 @@
                 <i class="el-icon-location"></i>
                 <span>{{item.menuTitle}}</span>
               </template>
-              <!-- <el-menu-item-group>
-                <template slot="title">分组一</template>
-                <el-menu-item index="1-1">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item-group title="分组2">
-                <el-menu-item index="1-3">选项3</el-menu-item>
-              </el-menu-item-group>-->
               <el-menu-item v-for="(i,k) in item.children" @click="addTab(i)" :index="key + '-' + k">{{i.menuTitle}}</el-menu-item>
-              <!-- <el-submenu index="1-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu>-->
             </el-submenu>
           </el-menu>
         </el-col>
       </el-row>
     </div>
     <div class="Mright">
-      <!-- <el-tabs v-model="currectIndex" @tab-click="tabclic" type="card" closable @tab-remove="removeTab">
-        <el-tab-pane
-          v-for="(item, index) in editableTabs2"
-          :key="index"
-          :label="item.title"
-          :name="item.name"
-        >
-        {{item.content}}
-        </el-tab-pane>
-      </el-tabs> -->
       <el-tabs v-model="currectIndex" @tab-click="tabclic" type="card" closable @tab-remove="removeTab" 
                style="position: fixed;top: 50px;width:calc(100% - 200px);z-index:999;background:#fff;">
         <el-tab-pane
@@ -57,13 +35,6 @@
           :data-route="item.route"
           :name="(index+1)+''"
         >
-
-          <!-- <Menu mode="horizontal" theme="light" active-name="1" >
-            <MenuItem :name="key" v-for="(item,key) in navlist" :key="key">
-                <Icon type="ios-paper" />
-                <span @click="clic(item)">{{item.name}}</span>
-            </MenuItem>
-          </Menu> -->
         </el-tab-pane>
       </el-tabs>
 
@@ -75,7 +46,6 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-// import menu from '../JS/menu.js'
 
 @Component
 export default class Main extends Vue {
@@ -160,6 +130,15 @@ export default class Main extends Vue {
       }
     }
     if(bool){
+      let x:any = document.getElementsByClassName("el-menu-item")
+      for(let y in x){
+        if(typeof x[y] == "object"){
+          if(x[y].innerText == targetName.menuTitle){
+            x[y].style.color = "rgb(255,208,75)"
+          }
+        }
+      }
+
       let newTabName = ++this.tabIndex +'';
       this.editableTabs2.push({
         menuTitle: targetName.menuTitle,
@@ -185,6 +164,16 @@ export default class Main extends Vue {
         this.editableTabs2.splice(targetName - 1, 1)
         this.currectIndex = this.editableTabs2.length + ""
         this.$router.push({name:this.editableTabs2[this.editableTabs2.length - 1].route})
+        let x:any = document.getElementsByClassName("el-menu-item")
+        for(let y in x){
+          if(typeof x[y] == "object"){
+            if(x[y].innerText == this.editableTabs2[this.editableTabs2.length - 1].menuTitle){
+              x[y].click()
+            }else{
+              x[y].style.color = "rgb(255,255,255)"
+            }
+          }
+        }
       }else{
         this.editableTabs2.splice(targetName - 1, 1)
         this.currectIndex = targetName + ""
@@ -198,6 +187,17 @@ export default class Main extends Vue {
 
   tabclic(data:any){
     this.$router.push({name:data["$attrs"]["data-route"]})
+    let x:any = document.getElementsByClassName("el-menu-item")
+    for(let y in x){
+      if(typeof x[y] == "object"){
+        if(x[y].innerText == data.label){
+          x[y].style.color = "rgb(255,208,75)"
+          x[y].click()
+        }else{
+          x[y].style.color = "rgb(255,255,255)"
+        }
+      }
+    }
   }
 }
 </script>
@@ -243,5 +243,6 @@ export default class Main extends Vue {
 
 .rtwstyl
   height calc(100% - 60px)
+  margin-left 10px
   overflow-y auto
 </style>
