@@ -6,8 +6,13 @@ import router from './router'
 import store from './store'
 import axios,{ AxiosInstance } from 'axios'
 
-Vue.config.productionTip = false
 
+// import echarts from 'echarts'
+
+Vue.use(echarts)
+// Vue.prototype.$echarts = echarts
+
+Vue.config.productionTip = false
 // 挂载axios
 Vue.use(v => {
   v.prototype.$http = axios

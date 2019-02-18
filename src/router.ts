@@ -14,31 +14,36 @@ export default new Router({
       component: Home,
       children:[
         {
+          path: '/',
+          name: 'homepage',
+          component: () => import('./views/homepage.vue')
+        },
+        {
           path: '/first',
           name: 'first',
-          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/first.vue')
+          component: () => import('./components/main/routeView/first.vue')
         },
         {
           path: '/second',
           name: 'second',
-          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/second.vue')
+          component: () => import('./components/main/routeView/second.vue')
         },
         {
           path: '/third',
           name: 'third',
-          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/third.vue')
+          component: () => import('./components/main/routeView/third.vue')
         },
         {
           path: '/forth',
           name: 'forth',
-          component: () => import(/* webpackChunkName: "about" */ './components/main/routeView/forth.vue')
+          component: () => import('./components/main/routeView/forth.vue')
         }
       ]
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: () => import('./views/About.vue')
     }
   ]
 })

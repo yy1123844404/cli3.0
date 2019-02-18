@@ -10,6 +10,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import '@/css/main.styl'
+// import "@/components/JS/echarts.js"
 export default Vue.extend({
   
 })

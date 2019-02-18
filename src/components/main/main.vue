@@ -55,7 +55,7 @@ export default class Main extends Vue {
     {
       menuTitle: "首页",
       name: "1",
-      route:"home"
+      route:"homepage"
     }
   ];
   tabIndex: number = 1;
